@@ -2,11 +2,22 @@
 ## mandatory part
 		- Docker
 		- Dockerfiles
+			-> blueprint for build images
+			-> Syntax:
+				- First line: FROM <image>
+					-> install image
+				- environment variables can also be defined in docker file (alternative to docker compose)
+					- ENV <environment variables>
+					- better to do in docker dompose
+					- .env file (?)
+				- RUN - execute any Linux command
+					- will apply to the container environment not the host
+				- COPY <src> <target>
+					- executes on the host
+
 			- PID 1
 			- best practice for writing docker-files
 			- lastest tag(prohibited)
-			- environment variables
-				- .env file
 			- Docker secrets
 		- Docker Images
 			-> the actual package
@@ -47,7 +58,6 @@
 				create docker network with given name
 			- docker network ls
 				list docker networks
-
 
 		- ports
 			docker ps lists ports, where the container is listening for incoming requests

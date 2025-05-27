@@ -4,7 +4,8 @@
 	Progress
 		-> went through subject and identified unknown concepts (see notes)
 		-> eval point +1
-		-> watched a 1::22:33h Docker Tutorial and took notes
+		-> watched a 1:49:49h Docker Tutorial and took notes
+			https://www.youtube.com/watch?v=3c-iBn73dDE
 
 	To dos
 		- Watch videos on Docker
