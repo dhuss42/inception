@@ -4,7 +4,7 @@
 		- Dockerfiles
 			-> blueprint for build images
 			-> Syntax:
-				- First line: FROM <image>
+				- First line: FROM <image>:<version>
 					-> install image
 				- environment variables can also be defined in docker file (alternative to docker compose)
 					- ENV <environment variables>
@@ -14,6 +14,9 @@
 					- will apply to the container environment not the host
 				- COPY <src> <target>
 					- executes on the host
+				- CMD 
+					- (?)
+					- entrypoint command
 
 			- PID 1
 			- best practice for writing docker-files
