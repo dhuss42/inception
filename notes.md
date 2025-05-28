@@ -2,12 +2,12 @@
 ## mandatory part
 		- Docker
 		- Dockerfiles
-			-> blueprint for build images
+			-> blueprint for building images
 			-> Syntax:
 				- First line: FROM <image>:<version>
 					-> install image
-				- environment variables can also be defined in docker file (alternative to docker compose)
-					- ENV <environment variables>
+				- ENV <environment variables>
+					- environment variables can also be defined in docker file (alternative to docker compose)
 					- better to do in docker dompose
 					- .env file (?)
 				- RUN - execute any Linux command
@@ -17,11 +17,33 @@
 				- CMD 
 					- (?)
 					- entrypoint command
-
 			- PID 1
-			- best practice for writing docker-files
+				-> first process started during system boot
+				-> all other process are then started by PID 1 (parent of every process in the system)
+				-> in docker the process that runs PID 1 is crucial because it is responsible for managing all other process inside the container
+				-> PID 1 handles and reviews signals from the Docker host
+				-> Shell Form vs Exec Form (recommended)
+					-> Shell Form
+						CMD python app.py == equivalent to ==> /bin/sh -c "python app.py"
+							-> a shell becomes PID 
+							-> python is a child process
+							-> signals like SIGTERM (used to stop a container) are sent to the shell and not always forwarded properly to the child process
+					-> Exec Form
+						CMD ["python", "app.py"]
+							-> runs python as PID 1
+							-> receives signals directly
+							-> gracefully shuts down if it can handle these signals
+			- best practice for writing docker-files (see further down)
 			- lastest tag(prohibited)
+				-> telling Docker to use the image tagged latest from the Docker registry
+				-> does not mean the ost up-to-date version
+				-> why not to use
+					-> non-deterministc: latest today is not latest tomorrow necessarliy
+					-> could break if changes in the latest affect things it did not in the prior latest version
+					-> had to debug because you don't know which version you are using
 			- Docker secrets
+				-> secure way to manage sensitive information
+				-> they keep this info out of Dockerfiles, images, envs...
 		- Docker Images
 			-> the actual package
 			-> the artifact that can be moved around
@@ -36,7 +58,27 @@
 			-> own abstraction of an OS
 		- automatic restart of containers if they crash
 		- daemons
+			- At the core of Docker's operation is the Docker daemon, an underlying background service running on the host OS, responsible for executing all Docker tasks.
+			- service responsible for orchestrating container lifecycle management. 
+			- container creation, execution, and monitoring. In a nutshell, it acts as a bridge between the Docker client and the Docker engine following Client-Server Architecture. Docker daemon executes commands issued by the client by translating them into actionable operations within the Docker environment.
+			https://www.geeksforgeeks.org/what-is-docker-daemon/ 
 		- volume
+			-> used for data persistance
+				-> for example Databases
+			-> Folder in physical host file system (host) is mounted into the virtual file system of Docker
+			-> when data is written in the container file system it is automatically repliacted on the host file system and vice versa
+			-> different Volume Types
+				-> docker run -v </path/to/host/directory>:<path/to/container/directory>
+					-> Host Volume
+					-> decide where on the host file system the reference is made /mount into the container
+				-> docker run -v <path/to/container>
+					-> Anonymous Volume
+					-> for each container a folder is generated that gets mounted to that container
+				-> docker run -v name:</path/to/container>
+					-> Named Volumes
+					-> you can reference the volume by name
+					-> preferred Volume type
+
 		- Docker Compose
 			-> makes running multiple containers with commands much easier
 			-> structured way to contain docker commands
@@ -48,10 +90,17 @@
 						image: <image name>
 						ports:
 							<host>:<container>
+						volumes:
+							<named Volume>:/path/container
 						environment:
 							<variables>
 					<container 2>:
 						...
+			-> list all the volumes that you defined
+			-> volumes:
+				<name>:
+					driver: local // not sure here
+			-> possible to have multiple containers mounted to the same volume
 
 		- docker-network
 			-> Docker creates it's an isolated network in which the containers are running in
@@ -73,15 +122,77 @@
 					-> specify the binding during the run command
 
 		- NGINX
-		- TLSv1.2 or TSLv1.3
+			- basic use case
+				-> browser requested a webpage from one webserver and the webserver responded to this request
+					-> webserver refers both the physical machine and the software running on that machine
+					-> Primary function is to serve a web page
+			- proxy Server
+				- load balancer
+					-> proxies (do something on someoneelse's behalf) the request to the webservers
+					-> sits at the entry and distrubtes the load to the webservers
+						-> least busy
+						-> distrubute equally in a cyclical manner
+				- Caching
+					-> assable data and store it temporarly on the proxy, send it out to requesters
+				- Security
+					-> one entrypoint (the proxy) reduces the attack surface a lot
+					-> encrypted Communication
+					-> proxy receives an encrypted message and will pass it on to the webserver which 		decyrpts it
+				- Compression
+					-> reduce bandwidth usage and improve load times
+					-> send responses in chunks
+
+		- TLSv1.2 or TSLv1.3 (for encryption)
+			-> 1.3 optimasation of 1.2
+			-> does three things
+				-> Authentication
+				-> Data Encryption
+				-> Data Integrity
+					-> has not forged or tempered with
+					-> MAC algorithm
+			-> https -> entrcypted form of http
+				-> uses TLS (Transport Layer Securtiy)
+			-> TLS two sessions (converstion between two parties)
+				-> 1. TLS Handshake
+					- main reason is for authentication
+						-> public key asymetric 
+						-> server present spublic key to client, client checks certificate, generates string encrypts it with private key and server decrypts it. Generate a master key with this string + other data. -> generate session key
+					- the client has trust the identity of the server
+						-> server provides a TLS Certificate for this
+							-> then they uses public key protocol for authentication
+							-> datafile that contains information about how owns the certificate and the authorit that issued the key + other data
+							-> Certificate Authority hands out TLS Certificates (signs them with their own private key, allowing client devices to verify it)
+					- establish a shared secrete key will be used for encryption
+				-> 2. Encryption
+					- the key is used to encrypt all ongoing messages
+					- after passing the data it will be verified if the data has been altered in any way
+					- if not the data will be decrypted using the same semetric secret key (semetric because used for decryption and encryption)
+			-> fast for huge amounts of data
+			-> impossible to break
 
 		- Wordpress
+			- free content management system
+			- create websites and blogs
+			- based on php
 		- php-fpm
-
-		- MariaDB
+			- PHP-FPM (FastCGI Process Manager) is an alternative PHP FastCGI implementation with some additional features useful for sites of any size, especially busier sites.
+			-php a server-side scripting language designed for web development, but which can also be used as a general-purpose programming language.
+		- MariaDB (database Management System)
+			-> Database
+				-> collection of related files
+			-> Database Management System
+				-> software that controls the database
+			-> Terminology
+				- record and row are interchangable
+				- column and attributes also
+			-> Almost all database managemet Systems use SQL (structured query language)
+			-> log into MariaDB server from command line
+				mariadb -u user_name -p -h ip_address db_name
 
 		- API
+			- An interface that makes it possible for independent Apps to communicate and share data
 		- API keys
+			- authenticates a user when they try to access an API
 
 ## bonus part
 		- redis cache for Wordpress
@@ -153,6 +264,11 @@
 		pulls image from the repo to local
 	- docker run <name>:<version>
 		pull image and start container (docker pull and docker start in ones)
+	docker rm <container id>
+		deltes container
+	docker rmi <image id>
+		deletes image
+		need to delete container first
 
 ## debug commands
 	- docker logs <contaienr id>
@@ -162,6 +278,7 @@
 	- docker exec -it <container id> /bin/bash
 		go inside the container as a root user, able to execute commands inside the container
 		it stand for interactive terminal
+		bash means the shell is bash
 	- docker exec -it <container name> /bin/bash
 		- same as with id
 	- exit to exit container
@@ -181,3 +298,70 @@
 	- docker-compose -f <dock-compose file name> down
 		will stop all the containers inside the docker-compose file
 		also removes the network and the network will be recreated
+
+## dockerfile
+	- docker build . -t <name>:<version> .
+		builds an image in the provided directory from that dockerfile
+
+# best practice for dockerfiles
+https://docs.docker.com/build/building/best-practices/ 
+
+### multi-stage build
+		-> reduces size of image by separating the building of the image and the final output
+### reusable stage
+		-> when things are in common reduce duplication
+### pick correct image
+		-> small base image
+		-> different images for building / testing and production, as some tools may not be needed later on
+	-> Rebuild images often / don't build from
+### cache
+	-> Docker cache are previously built image layers stored on disk
+		-> speeds up rebuildbe reusing unchanged steps
+	-> --no-cache Forces Docker to rebuild everything from scratch
+		-> pulls the latest available dependencies
+
+### .dockerignore
+	-> like .gitignore
+
+### Ephemeral Container
+
+	- Doesn’t write to local disk
+	- Config is injected (e.g., env vars)
+	- Can be rebuilt & replaced easily
+	The app should not store session info, logs, or data inside the container.
+	Instead, use:
+    	- Databases for data
+		- Volumes for shared persistent storage
+		- Environment variables for config
+		- Logging drivers or log aggregation 
+		- services for logs
+
+### don't install unncessary packages
+	-> reduces:
+		complexity
+		dependencies
+		filessize
+		build times
+
+### Decouple applications
+	- one container for one service / process
+
+### Sort multi-line arguments
+	- when possible alphanumerically
+	- space before \
+
+### understand how build cache works
+	-> when building an image docker steps through instructions line by line always checking if it can reuses instructions from the cache
+	-> if a layer changes all subsequent layers are changed
+		-> helpful to keep in mind when organising the layers inside the dockerfile
+		https://docs.docker.com/build/cache/
+
+### Dockerfile instructions
+	https://docs.docker.com/reference/dockerfile/
+
+### RUN
+	- Always combine RUN apt-get update with apt-get install in the same RUN statement
+		- RUN apt-get update && apt-get install -y --no-install-recommends
+
+		rm -rf /var/lib/apt/lists/*
+			deletes cache from APT install
