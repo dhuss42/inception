@@ -51,9 +51,9 @@
 			-> image has a version
 		- Container
 			-> actual start the application
-			-> environment that is running for am image
+			-> environment that is running from an image
 			-> running as oppossed to the Docker Image which is not running
-			-> has a port, makes it possible to take to an application that is running inside a container
+			-> has a port, makes it possible to talk to an application that is running inside a container
 			-> has a virtual file system
 			-> own abstraction of an OS
 		- automatic restart of containers if they crash

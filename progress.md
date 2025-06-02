@@ -34,3 +34,27 @@
 		-> API
 		-> best practices for dockerfiles
 	-> started with mariaDB dockerfile
+
+## ======Day 3======
+	-> read a little about docker-compose
+	-> played around with Makefile
+	-> played around with docker-compose
+	-> built dockerfiles for wordpress an nginx
+	-> tried to figure out config for nginx
+		-> TSL
+			https://www.cyberciti.biz/faq/configure-nginx-to-use-only-tls-1-2-and-1-3/
+		-> config
+			https://www.andrewhoog.com/post/how-to-customize-nginx-config-in-a-docker-image/
+		-> script
+		-> certificate and key
+			https://www.youtube.com/watch?v=X3Pr5VATOyA
+			https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-debian-10 
+	
+## ======Day 4======
+	-> read more on ngnix
+		https://nginx.org/en/docs/beginners_guide.html
+	-> managed to set up TSL (I think)
+		-> openssl.cnf to automate prompts during key gen
+	-> proper copying and running of files and script
+	-> Learning more configuration for nginx
+		https://www.youtube.com/watch?v=C5kMgshNc6g

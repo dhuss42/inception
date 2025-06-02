@@ -1,0 +1,42 @@
+
+services:
+  mariadb:
+    container_name: mariadb
+    build: ./mariadb
+    ports:
+      - 3306:3306
+    restart: always
+    env_file: 
+      - ./.env
+    volumes:
+      - volume_mariadb:/var/lib/mysql
+#    secrets:
+    networks:
+      - inception
+
+  # wordpress:
+  #   container_name: wordpress
+  #   build: ./wordpress
+  #   depends_on: 
+  #     - mariadb
+  #   networks:
+  #     - inception
+
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    ports:
+      - "443:443"
+    restart: always
+    networks:
+      - inception
+
+
+
+networks:
+  inception:
+    name: inception
+
+volumes:
+  volume_mariadb:
+    name: mariadb

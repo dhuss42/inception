@@ -1,0 +1,5 @@
+nginx -v
+	- returns version of nginx
+
+nginx -t
+	- checks if configuration is ok and has no syntax errors
