@@ -69,3 +69,4 @@
 		https://www.linode.com/docs/guides/how-to-install-wordpress-using-wp-cli-on-debian-10/#download-and-configure-wordpress
 	-> also working on mariadb configuration
 		-> probably makes more sense to finish it before doing the wordpress config
+	-> located the mariadb 50-server.cnf file extracted it to modify it now
