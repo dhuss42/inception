@@ -48,8 +48,8 @@
 		-> script
 		-> certificate and key
 			https://www.youtube.com/watch?v=X3Pr5VATOyA
-			https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-debian-10 
-	
+			https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-debian-10
+
 ## ======Day 4======
 	-> read more on ngnix
 		https://nginx.org/en/docs/beginners_guide.html
@@ -58,3 +58,14 @@
 	-> proper copying and running of files and script
 	-> Learning more configuration for nginx
 		https://www.youtube.com/watch?v=C5kMgshNc6g
+
+## ======Day 5======
+	-> working nginx version for now
+		-> set up the root and index page and can access it via https://localhost/
+	-> config documentation for nginx
+		https://nginx.org/en/docs/http/request_processing.html
+	-> trying to set up wordpress
+		https://www.youtube.com/watch?v=gEceSAJI_3s
+		https://www.linode.com/docs/guides/how-to-install-wordpress-using-wp-cli-on-debian-10/#download-and-configure-wordpress
+	-> also working on mariadb configuration
+		-> probably makes more sense to finish it before doing the wordpress config

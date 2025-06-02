@@ -5,6 +5,11 @@ RUN apt-get update && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
+# change owensership to mysql so PID file can be stored inside
 RUN mkdir -p /run/mysqld && chown mysql:mysql /run/mysqld
 
-CMD ["mysqld"]
+COPY ./setup_mariadb.sh /setup_mariadb.sh
+
+RUN chmod +x /setup_mariadb.sh
+
+CMD ["/setup_mariadb.sh"]

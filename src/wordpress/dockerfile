@@ -2,7 +2,12 @@ FROM debian:bullseye
 
 RUN apt-get update && \
 	apt-get install -y wordpress && \
+	apt-get install -y php-fpm && \
+	apt-get install -y curl && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
-CMD ["bash"]
+COPY	./setup_wordpress.sh /setup_wordpress.sh
+RUN		chmod +x /setup_wordpress.sh
+
+ENTRYPOINT ["/setup_wordpress.sh"]

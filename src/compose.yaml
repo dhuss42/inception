@@ -6,7 +6,9 @@ services:
     ports:
       - 3306:3306
     restart: always
-    env_file: 
+#   root password required for mariadb to start
+#   User / password / database name required for Wordpress to connect to mariadb
+    env_file:
       - ./.env
     volumes:
       - volume_mariadb:/var/lib/mysql
@@ -14,23 +16,38 @@ services:
     networks:
       - inception
 
-  # wordpress:
-  #   container_name: wordpress
-  #   build: ./wordpress
-  #   depends_on: 
-  #     - mariadb
-  #   networks:
-  #     - inception
+#   wordpress:
+#     container_name: wordpress
+#     build: ./wordpress
+#     depends_on:
+#       - mariadb
+#     networks:
+#       - inception
+#     restart: always
+#     # sectres:
+#     env_file:
+#        - ./.env
+# # use the same credentials as mariadb configured for wordpress
+#     environment:
+#       WORDPRESS_DB_HOST: mariadb:3306
+#       WORDPRESS_DB_NAME: '${MYSQL_DATABASE}'
+#       WORDPRESS_DB_USER: '${MYSQL_USER}'
+#       WORDPRESS_DB_PASSWORD: '${MYSQL_PASSWORD}'
+#     volumes:
+# 	   - ./:/var/www/html
 
   nginx:
     container_name: nginx
     build: ./nginx
     ports:
-      - "443:443"
+      - 443:443
     restart: always
+    depends_on:
+      - wordpress
     networks:
       - inception
-
+    # volumes:
+    #   -
 
 
 networks:
