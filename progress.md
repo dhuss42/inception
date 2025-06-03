@@ -2,7 +2,6 @@
 
 ## To dos
 	- merge note documents to one clearly structured overview
-	- reread subject
 	- make a plan
 		-> generate infrastructure
 		-> make containers
@@ -10,6 +9,7 @@
 		-> make docker compose
 		-> makefile
 		-> scripts
+	- document scripts
 
 #----bonus----#
 	- Find defintitions for the identified unknown concepts in bonus part
@@ -70,3 +70,18 @@
 	-> also working on mariadb configuration
 		-> probably makes more sense to finish it before doing the wordpress config
 	-> located the mariadb 50-server.cnf file extracted it to modify it now
+	-> worked on the mariadb script
+		-> now the environment variables are used to create a user and a databse
+
+## ======Day 6======
+	-> worked on Makefile
+		-> clean
+		-> fclean
+		-> updated status to show disk usage
+		-> up: added flags for navigating to compose file, adding envs and naming project, also starting in detached mode (for terminal), and building images before starting containers
+		-> down, stop, start, restart
+	-> worked on wordpress script
+		-> fixed automatic restarting
+		-> script now waits until mariadbis setup
+		-> followed installation guid o wordpress config
+	-> changed bind address inside mariadb config to 0.0.0.0 now it allows listens on all interfaces

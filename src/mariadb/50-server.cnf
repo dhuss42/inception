@@ -25,9 +25,8 @@ skip-external-locking
 # safe to skip if there are no "host by domain name" access grants
 #skip-name-resolve
 
-# Instead of skip-networking the default is now to listen only on
-# localhost which is more compatible and is not less secure.
-bind-address            = 127.0.0.1
+# changed bind-address to listen on all interfaces
+bind-address            = 0.0.0.0
 
 #
 # * Fine Tuning
