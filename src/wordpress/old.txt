@@ -1,0 +1,26 @@
+activate          Activates a theme.
+  auto-updates      Manages theme auto-updates.
+  delete            Deletes one or more themes.
+  disable           Disables a theme on a WordPress multisite install.
+  enable            Enables a theme on a WordPress multisite install.
+  get               Gets details about a theme.
+  install           Installs one or more themes.
+  is-active         Checks if a given theme is active.
+  is-installed      Checks if a given theme is installed.
+  list              Gets a list of themes.
+  mod               Sets, gets, and removes theme mods.
+  path              Gets the path to a theme or to the theme directory.
+  search            Searches the WordPress.org theme directory.
+  status            Reveals the status of one or all themes.
+  update            Updates one or more themes.
+
+      # Install the latest version of a theme from wordpress.org and activate
+    $ wp theme install twentysixteen --activate
+    Installing Twenty Sixteen (1.2)
+    Downloading install package from http://downloads.wordpress.org/theme/twentysixteen.1.2.zip...
+    Unpacking the package...
+    Installing the theme...
+    Theme installed successfully.
+    Activating 'twentysixteen'...
+    Success: Switched to 'Twenty Sixteen' theme.
+    Success: Installed 1 of 1 themes.

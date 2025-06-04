@@ -85,3 +85,15 @@
 		-> script now waits until mariadbis setup
 		-> followed installation guid o wordpress config
 	-> changed bind address inside mariadb config to 0.0.0.0 now it allows listens on all interfaces
+	-> finished wordpress configuration
+	-> setting up nginx & php-fpm communication
+		-> nginx config file handles incoming php requests and sends them to php-fpm
+		-> php-fpm listens on correct port to handle incoming requests passed on by ngin
+	
+## ======Day 6======
+	-> created custom config for the communication between nginx and php-fpm
+		-> passing through dockerfile and overwriting the default config
+	-> did some cleaning up
+	-> solves issue with only html appearing
+		-> had to create directories inside wp script for wp_cli cache and give rights
+	-> created user on start

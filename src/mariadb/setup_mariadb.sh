@@ -18,15 +18,11 @@ mysql -u root -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${MYSQL_ROOT_P
 
 # execute command as root using heredoc
 mysql -u root -p"${MYSQL_ROOT_PASSWORD}" <<EOF
-CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};
+CREATE DATABASE IF NOT EXISTS ${DATABASE};
 CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
-GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO ${MYSQL_USER};
+GRANT ALL PRIVILEGES ON ${DATABASE}.* TO ${MYSQL_USER};
 FLUSH PRIVILEGES;
 EOF
-
-# echo "database: ${MYSQL_DATABASE}"
-# echo "user: ${MYSQL_USER}"
-# echo "MYSQL_PASSWORD: ${MYSQL_PASSWORD}"
 
 # wait so that container does not shut down
 wait

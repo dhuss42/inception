@@ -52,14 +52,20 @@ clean:
 	@echo "$(YELLOW)Removing networks...$(RESET)"
 	@docker network prune
 
-fclean: stop
+fclean: stop clean
 	@echo "$(YELLOW)Removing unused data across the Docker system$(RESET)"
 	@docker system prune -a --volumes
-	@if docker volume ls | grep -q '^mariadb$$'; then \
-		echo "$(YELLOW)Removing local mariadb volume$(RESET)"; \
-		docker volume rm mariadb; \
+	@if [ $$(docker volume ls -q | grep "mariadb") ]; then \
+		echo "$(YELLOW)Removing mariadb volumes$(RESET)"; \
+		docker volume rm $$(docker volume ls -q | grep "mariadb"); \
 	else \
-		echo "$(YELLOW)mariadb volume does not exist$(RESET)"; \
+		echo "$(YELLOW)No mariadb volume to remove$(RESET)"; \
+	fi
+	@if [ $$(docker volume ls -q | grep "wp_nginx") ]; then \
+		echo "$(YELLOW)Removing wp_nginx volume$(RESET)"; \
+		docker volume rm $$(docker volume ls -q | grep "wp_nginx"); \
+	else \
+		echo "$(YELLOW)No wp_nginx volume to remove$(RESET)"; \
 	fi
 
 re: fclean up

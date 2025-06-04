@@ -7,6 +7,9 @@ RUN apt-get update && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
+
+
+
 # copy this file into conf.d because the main nginx config file has "include /etc/nginx/conf.d/*.conf;"
 # any valid config file with a server block will run
 COPY ./custom.conf	/etc/nginx/conf.d/custom.conf
