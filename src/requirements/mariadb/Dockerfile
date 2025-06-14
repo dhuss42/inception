@@ -1,19 +1,19 @@
 FROM debian:bullseye
 
-RUN apt-get update && \
-	apt-get upgrade -y && \
-	apt-get install -y mariadb-server && \
-	apt-get clean && \
+RUN apt-get update && apt-get upgrade -y && \
+	apt-get install -y \
+		mariadb-server \
+	&& apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
 # change owensership to mysql so PID file can be stored inside
 RUN mkdir -p /run/mysqld && chown mysql:mysql /run/mysqld
 
 # copy script
-COPY ./setup_mariadb.sh /setup_mariadb.sh
+COPY ./tools/setup_mariadb.sh /setup_mariadb.sh
 
 # config file of mariadb includes !includedir /etc/mysql/mariadb.conf.d/
-COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 RUN chmod +x /setup_mariadb.sh
 RUN chmod +x /etc/mysql/mariadb.conf.d/50-server.cnf

@@ -1,5 +1,11 @@
 #!/bin/bash
 
+DB_ROOT_PASSWORD=$(cat /run/secrets/db_root_pw)
+DB_USER_PASSWORD=$(cat /run/secrets/db_pw)
+
+echo "[DB_ROOT_PASSWORD] = ${DB_ROOT_PASSWORD}"
+echo "[DB_USER_PASSWORD] = ${DB_USER_PASSWORD}"
+
 # for debugging prints all cmds
 set -x
 
@@ -14,13 +20,13 @@ done
 # -u root: run mysql as user root
 # -e : execute the cmd inside quotes
 # use password passed through envs
-mysql -u root -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${MYSQL_ROOT_PASSWORD}');"
+mysql -u root -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${DB_ROOT_PASSWORD}');"
 
 # execute command as root using heredoc
-mysql -u root -p"${MYSQL_ROOT_PASSWORD}" <<EOF
+mysql -u root -p"${DB_ROOT_PASSWORD}" <<EOF
 CREATE DATABASE IF NOT EXISTS ${DATABASE};
-CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
-GRANT ALL PRIVILEGES ON ${DATABASE}.* TO ${MYSQL_USER};
+CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_USER_PASSWORD}';
+GRANT ALL PRIVILEGES ON ${DATABASE}.* TO '${DB_USER}'@'%';
 FLUSH PRIVILEGES;
 EOF
 

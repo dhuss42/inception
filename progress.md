@@ -1,18 +1,23 @@
 # File to track progress for inception project and to list the next to dos
 
 ## To dos
-	- merge note documents to one clearly structured overview
-	- make a plan
-		-> generate infrastructure
-		-> make containers
-		-> make volumes
-		-> make docker compose
-		-> makefile
-		-> scripts
-	- document scripts
+	[] virtual machine on 42 machine
+	[x] change to expected file system 
+	[x] credentials, API keys and passwords musst be stored locally and ignored by git
+	[x] wordpress download, config and installtion should check wether it has been installed already
+	[x] second user for admin (no admin in name or credentials)
+	[] read up on wait with mariadb
+	[] check ports in docker-compose
+	[] update documentation
 
 #----bonus----#
 	- Find defintitions for the identified unknown concepts in bonus part
+		[x] adminer
+		[x] redis chache
+		[] FTP server
+		[] service of choice
+		[] static website
+
 
 ## ======Day 1======
 	-> went through subject and identified unknown concepts (see notes)
@@ -97,3 +102,45 @@
 	-> solves issue with only html appearing
 		-> had to create directories inside wp script for wp_cli cache and give rights
 	-> created user on start
+
+## ======Day 7======
+	-> changed to expected file system
+	-> worked on secrets
+		https://docs.docker.com/compose/how-tos/use-secrets/
+		secrets are now used for passwords and ignored as are .env
+	-> for some reason I don't get correctly installed wordpress any more :(
+
+## ======Day 8======
+	-> struggling to find the solution
+		-> mariadb wordpress communication seems to work
+		-> php-fpm nginx communication seems to work
+	-> added healthcheck so that nginx service starts after wordpress
+
+## ======Day 9======
+	-> found out I am an idiot
+		page was working all the time
+
+## ======Day 10======
+	- added themes in wordpress setup
+		https://developer.wordpress.org/cli/commands/
+	- did some cleaning up in wordpress script && Dockerfiles
+	- included checks in wordpress script to avoid error messages and unncessary installs
+	- got adminer to work
+		- need to login via http:://localhost:8080
+			- server name mariadb
+
+## ======Day 11======
+	- reading upon redis-cache
+		- Docker
+			https://www.docker.com/blog/how-to-use-the-redis-docker-official-image/
+		- config
+			https://github.com/redis/redis/blob/unstable/redis.conf
+		- redis cli
+			https://redis.io/docs/latest/develop/reference/client-side-caching/
+		- redis-cache wordpress plugin
+			https://wordpress.org/plugins/redis-cache/
+		- configuration of redis-cache plugin
+			https://github.com/rhubarbgroup/redis-cache/#configuration
+			https://github.com/rhubarbgroup/redis-cache/blob/develop/INSTALL.md
+			https://developer.wordpress.org/advanced-administration/wordpress/wp-config/
+	- managed redis-cache setup

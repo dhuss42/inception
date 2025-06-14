@@ -1,5 +1,5 @@
 
-COMPOSE= ./src/compose.yaml
+COMPOSE= ./src/docker-compose.yml
 ENV_FILE= ./src/.env
 NAME= inception
 

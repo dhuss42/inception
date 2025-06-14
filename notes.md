@@ -196,6 +196,31 @@
 
 ## bonus part
 		- redis cache for Wordpress
+			- A cache is a hardware or software component that stores data so that future requests for that data can be served faster; the data stored in a cache might be the result of an earlier computation or a copy of data stored elsewhere
+			- a non-sql database
+			- stores data in key=value pairs
+			- works in ram -> that's why used for caching
+			- built on top of a tradtional database and redis sits infront of it
+			- a redis database for caching
+				- between webserver and databases
+				- if request is in cache it can be accessed from there directly saving response time
+				- if its not in cache it goes to database and is then stored in cache
+			- downside is cache staleness, meaning it does not represent the up-to-date data
+				- TTL (time to live) can be set for data
+			apt-get install -y redis
+			redis - server 
+				to start Port: 6379
+			redis-cli
+				- acces redis and run commands
+			SET name kyle
+				set key=value pair
+			DELETE name
+			GET <key>
+			EXISTS <key>
+			ttl <key>
+				- shows time to live
+			expire <key> <time in s>
+
 		- FTP server
 		- Adminer
 		- simple static website in language of choice except php

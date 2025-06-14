@@ -1,0 +1,121 @@
+#----------Networks----------#
+
+networks:
+  inception:
+    name: inception
+
+#----------Volumes----------#
+
+volumes:
+  volume_mariadb:
+    name: mariadb
+  volume_wp_nginx:
+    name: wp_nginx
+
+#----------Secrets----------#
+
+secrets:
+  db_pw: 
+    file: ../secrets/db_pw.txt
+  db_root_pw:
+    file: ../secrets/db_root_pw.txt
+  wp_pw:
+    file: ../secrets/wp_user_pw.txt
+  wp_admin_pw: 
+    file: ../secrets/wp_admin_pw.txt
+
+#----------Services----------#
+
+services:
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    ports:
+      - 3306:3306
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      - volume_mariadb:/var/lib/mysql
+    secrets:
+      - db_pw
+      - db_root_pw
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      start_period: 7s
+      interval: 2s
+      timeout: 5s
+      retries: 5
+    networks:
+      - inception
+
+#----------Wordpress----------#
+
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    expose:
+      - "9000"
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    restart: always
+    secrets:
+      - wp_pw
+      - wp_admin_pw
+      - db_pw
+    healthcheck:
+      test: ["CMD-SHELL", "wp core is-installed --path=/var/www/html/localhost/public_html --allow-root"]
+      start_period: 7s
+      interval: 2s
+      timeout: 5s
+      retries: 5
+    env_file:
+       - ./.env
+    volumes:
+       - volume_wp_nginx:/var/www/html
+
+#----------Nginx----------#
+
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    ports:
+      - 443:443
+    restart: always
+    depends_on:
+      wordpress:
+        condition: service_healthy
+    networks:
+      - inception
+    volumes:
+      - volume_wp_nginx:/var/www/html
+
+#----------Bonus----------#
+
+#----------adminer----------#
+  adminer:
+    container_name: adminer
+    build: ./requirements/bonus/adminer
+    ports: 
+      - 8080:8080
+    restart: always
+    depends_on: 
+      mariadb:
+        condition: service_healthy
+    networks:
+      - inception
+  
+#----------redis cache----------#
+  redis:
+    container_name: redis
+    build: ./requirements/bonus/redis
+    ports: 
+      - 6379:6379
+    restart: always
+    depends_on: 
+      wordpress:
+        condition: service_healthy
+    networks:
+      - inception
