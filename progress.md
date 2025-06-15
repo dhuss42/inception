@@ -7,7 +7,7 @@
 	[x] wordpress download, config and installtion should check wether it has been installed already
 	[x] second user for admin (no admin in name or credentials)
 	[] read up on wait with mariadb
-	[] check ports in docker-compose
+	[x] check ports in docker-compose
 	[] update documentation
 
 #----bonus----#
@@ -16,7 +16,7 @@
 		[x] redis chache
 		[] FTP server
 		[] service of choice
-		[] static website
+		[x] static website
 
 
 ## ======Day 1======
@@ -156,3 +156,10 @@
 	-> set up reverse proxy for static website and adminer
 		-> now accessable via localhost/adminer & localhost/resume
 	-> removed exposed ports and access from host on these ports in docker-compose
+	-> looked up vsftpd for debian
+		https://wiki.debian.org/vsftpd
+		https://reintech.io/blog/configure-secure-ftp-server-vsftpd-debian-12
+
+	-> config documentation
+		http://vsftpd.beasts.org/vsftpd_conf.html
+
