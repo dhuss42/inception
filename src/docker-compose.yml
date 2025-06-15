@@ -30,8 +30,6 @@ services:
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
-    ports:
-      - 3306:3306
     restart: always
     env_file:
       - ./.env
@@ -54,8 +52,6 @@ services:
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress
-    expose:
-      - "9000"
     depends_on:
       - mariadb
     networks:
@@ -98,8 +94,6 @@ services:
   adminer:
     container_name: adminer
     build: ./requirements/bonus/adminer
-    ports: 
-      - 8080:8080
     restart: always
     depends_on: 
       mariadb:
@@ -111,8 +105,14 @@ services:
   redis:
     container_name: redis
     build: ./requirements/bonus/redis
-    ports: 
-      - 6379:6379
+    restart: always
+    networks:
+      - inception
+
+#----------static website----------#
+  website:
+    container_name: website
+    build: ./requirements/bonus/website
     restart: always
     depends_on: 
       wordpress:

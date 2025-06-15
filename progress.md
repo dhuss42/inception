@@ -144,3 +144,15 @@
 			https://github.com/rhubarbgroup/redis-cache/blob/develop/INSTALL.md
 			https://developer.wordpress.org/advanced-administration/wordpress/wp-config/
 	- managed redis-cache setup
+	- added static website container
+		-> accessable via localhost:7777
+		-> still needs basic desgin
+			-> following this guide for html and css
+			https://www.youtube.com/watch?v=FHb9JobDs2o
+				-> 13:32
+
+## ======Day 12======
+	-> finished static website
+	-> set up reverse proxy for static website and adminer
+		-> now accessable via localhost/adminer & localhost/resume
+	-> removed exposed ports and access from host on these ports in docker-compose

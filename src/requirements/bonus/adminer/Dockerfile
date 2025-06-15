@@ -11,8 +11,5 @@ RUN apt-get update && apt-get upgrade -y && \
 RUN mkdir -p /var/www/html && \
     curl -L -o /var/www/html/index.php https://www.adminer.org/latest.php
 
-# Expose port 8080 for accessing Adminer via the browser
-EXPOSE 8080
-
 #execute php with (-S) built in web-server that listens on all interfaces on port 8080 at the document root from which the files will be served
 CMD ["php", "-S", "0.0.0.0:8080", "-t", "/var/www/html"]
