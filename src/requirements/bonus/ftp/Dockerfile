@@ -19,5 +19,13 @@
 FROM debian:bookworm
 
 RUN apt-get update && apt-get upgrade -y && \
-	apt-getinstall -y \
-		vsftpd
+	apt-get install -y \
+		vsftpd \
+		net-tools
+
+COPY /conf/vsftpd.conf /etc/vsftpd.conf
+COPY /tools/setup_vsftpd.sh /setup_vsftpd.sh
+
+RUN chmod +x setup_vsftpd.sh
+
+ENTRYPOINT ["/setup_vsftpd.sh"]

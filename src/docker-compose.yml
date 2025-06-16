@@ -11,17 +11,19 @@ volumes:
     name: mariadb
   volume_wp_nginx:
     name: wp_nginx
+  volume_portainer:
+    name: portainer_data
 
 #----------Secrets----------#
 
 secrets:
-  db_pw: 
+  db_pw:
     file: ../secrets/db_pw.txt
   db_root_pw:
     file: ../secrets/db_root_pw.txt
   wp_pw:
     file: ../secrets/wp_user_pw.txt
-  wp_admin_pw: 
+  wp_admin_pw:
     file: ../secrets/wp_admin_pw.txt
 
 #----------Services----------#
@@ -95,12 +97,12 @@ services:
     container_name: adminer
     build: ./requirements/bonus/adminer
     restart: always
-    depends_on: 
+    depends_on:
       mariadb:
         condition: service_healthy
     networks:
       - inception
-  
+
 #----------redis cache----------#
   redis:
     container_name: redis
@@ -114,8 +116,32 @@ services:
     container_name: website
     build: ./requirements/bonus/website
     restart: always
-    depends_on: 
+    depends_on:
       wordpress:
         condition: service_healthy
     networks:
       - inception
+
+#----------ftp----------#
+  # ftp:
+  #   container_name: ftp
+  #   build: ./requirements/bonus/ftp
+  #   ports:
+  #     - 21:21
+  #   restart: always
+  #   networks:
+  #     - inception
+
+#----------portainer----------#
+
+  portainer:
+    container_name: portainer
+    build: ./requirements/bonus/portainer
+    ports:
+      - 8000:8000
+      - 9443:9443
+    restart: always
+    networks:
+      - inception
+    volumes:
+       - volume_portainer:/data portainer/portainer-ee:lts

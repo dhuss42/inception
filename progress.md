@@ -2,7 +2,7 @@
 
 ## To dos
 	[] virtual machine on 42 machine
-	[x] change to expected file system 
+	[x] change to expected file system
 	[x] credentials, API keys and passwords musst be stored locally and ignored by git
 	[x] wordpress download, config and installtion should check wether it has been installed already
 	[x] second user for admin (no admin in name or credentials)
@@ -94,7 +94,7 @@
 	-> setting up nginx & php-fpm communication
 		-> nginx config file handles incoming php requests and sends them to php-fpm
 		-> php-fpm listens on correct port to handle incoming requests passed on by ngin
-	
+
 ## ======Day 6======
 	-> created custom config for the communication between nginx and php-fpm
 		-> passing through dockerfile and overwriting the default config
@@ -163,3 +163,10 @@
 	-> config documentation
 		http://vsftpd.beasts.org/vsftpd_conf.html
 
+## ======Day 13======
+	-> started setting up vsftpd
+		https://www.digitalocean.com/community/tutorials/how-to-set-up-vsftpd-for-a-user-s-directory-on-ubuntu-20-04
+		https://docs.digitalocean.com/products/droplets/how-to/transfer-files/#install-filezilla
+	-> started setting up portainer
+		https://www.youtube.com/watch?v=WGf-bCiW1Q0
+		https://docs.portainer.io/start/install/server/docker/linux
