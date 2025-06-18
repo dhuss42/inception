@@ -9,7 +9,8 @@ echo "[DB_USER_PASSWORD] = ${DB_USER_PASSWORD}"
 # for debugging prints all cmds
 set -x
 
-mysqld_safe &
+# run mariadbd (server deamon) in background
+mariadbd --skip-networking &
 
 # Wait until MariaDB is ready to accept connections
 echo "Waiting for MariaDB to be ready..."
@@ -30,5 +31,8 @@ GRANT ALL PRIVILEGES ON ${DATABASE}.* TO '${DB_USER}'@'%';
 FLUSH PRIVILEGES;
 EOF
 
-# wait so that container does not shut down
-wait
+# sends shutdown signal to mariadbd server
+mysqladmin -u root shutdown
+
+# run mariadbd as pid1
+exec mariadbd

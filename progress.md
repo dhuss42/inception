@@ -9,13 +9,17 @@
 	[] read up on wait with mariadb
 	[x] check ports in docker-compose
 	[] update documentation
+	[] clean up at end
+		[] Debugging messages
+		[] echo secrets in scripts
+		[] set -x
 
 #----bonus----#
 	- Find defintitions for the identified unknown concepts in bonus part
 		[x] adminer
 		[x] redis chache
 		[] FTP server
-		[] service of choice
+		[x] service of choice -> Portainer
 		[x] static website
 
 
@@ -170,3 +174,10 @@
 	-> started setting up portainer
 		https://www.youtube.com/watch?v=WGf-bCiW1Q0
 		https://docs.portainer.io/start/install/server/docker/linux
+
+## ======Day 14======
+	-> set up portainer
+	-> Problem: when running make stop portainer exits with 2 and nginx, mariadb, website and adminer with 127
+		-> fixed for nginx (didn't use exec nginx) 
+			-> sigterm goes to the script not nginx directly when starting nginx without exec (because it is a child process)
+		-> changed mariadb setup to init mariadbd + shutdown and start mariadbd

@@ -40,4 +40,4 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/selfs
 # -> returns control to shell/parent process			#
 # -> if PID 1 exits, Docker assumes container is done	#
 #-------------------------------------------------------#
-nginx -g "daemon off;"
+exec nginx -g "daemon off;"

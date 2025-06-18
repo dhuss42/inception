@@ -67,6 +67,13 @@ fclean: stop clean
 	else \
 		echo "$(YELLOW)No wp_nginx volume to remove$(RESET)"; \
 	fi
+	@if [ $$(docker volume ls -q | grep "portainer_data") ]; then \
+		echo "$(YELLOW)Removing portainer volumes$(RESET)"; \
+		docker volume rm $$(docker volume ls -q | grep "portainer_data"); \
+	else \
+		echo "$(YELLOW)No portainer volume to remove$(RESET)"; \
+	fi
+
 
 re: fclean up
 

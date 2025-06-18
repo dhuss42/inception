@@ -25,6 +25,8 @@ secrets:
     file: ../secrets/wp_user_pw.txt
   wp_admin_pw:
     file: ../secrets/wp_admin_pw.txt
+  portainer_admin_pw:
+    file: ../secrets/portainer_admin_pw.txt
 
 #----------Services----------#
 
@@ -65,10 +67,10 @@ services:
       - db_pw
     healthcheck:
       test: ["CMD-SHELL", "wp core is-installed --path=/var/www/html/localhost/public_html --allow-root"]
-      start_period: 7s
+      start_period: 10s
       interval: 2s
       timeout: 5s
-      retries: 5
+      retries: 7
     env_file:
        - ./.env
     volumes:
@@ -138,10 +140,14 @@ services:
     container_name: portainer
     build: ./requirements/bonus/portainer
     ports:
-      - 8000:8000
       - 9443:9443
     restart: always
     networks:
       - inception
     volumes:
-       - volume_portainer:/data portainer/portainer-ee:lts
+    # file that acts as communication interface to Docker Engine
+    # allows Portainer to talk to host Docker engine
+       - /var/run/docker.sock:/var/run/docker.sock
+       - volume_portainer:/data
+    secrets:
+       - portainer_admin_pw

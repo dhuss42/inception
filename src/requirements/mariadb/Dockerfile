@@ -18,4 +18,4 @@ COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 RUN chmod +x /setup_mariadb.sh
 RUN chmod +x /etc/mysql/mariadb.conf.d/50-server.cnf
 
-CMD ["./setup_mariadb.sh"]
+ENTRYPOINT ["./setup_mariadb.sh"]
