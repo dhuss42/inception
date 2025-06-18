@@ -27,5 +27,5 @@ RUN apt-get update && apt-get upgrade -y && \
 # runs portainer, 
 # --data /data tells portrainer where to store its persistent data (mounted in compose)
 # last to strings are password configuration
-# CMD ["portainer", "--data", "/data", "--admin-password-file", "/run/secrets/portainer_admin_pw"]
-CMD ["portainer", "--data", "/data"]
+CMD ["portainer", "--data", "/data", "--admin-password-file", "/run/secrets/portainer_admin_pw"]
+# CMD ["portainer", "--data", "/data"]

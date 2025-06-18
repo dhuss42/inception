@@ -23,7 +23,7 @@ RUN apt-get update && apt-get upgrade -y && \
 		vsftpd \
 		net-tools
 
-COPY /conf/vsftpd.conf /etc/vsftpd.conf
+COPY /conf/vsftpd.conf /etc/vsftpd/vsftpd.conf
 COPY /tools/setup_vsftpd.sh /setup_vsftpd.sh
 
 RUN chmod +x setup_vsftpd.sh

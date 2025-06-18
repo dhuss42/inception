@@ -27,6 +27,8 @@ secrets:
     file: ../secrets/wp_admin_pw.txt
   portainer_admin_pw:
     file: ../secrets/portainer_admin_pw.txt
+  ftp_pw:
+    file: ../secrets/ftp_pw.txt
 
 #----------Services----------#
 
@@ -100,8 +102,7 @@ services:
     build: ./requirements/bonus/adminer
     restart: always
     depends_on:
-      mariadb:
-        condition: service_healthy
+      - mariadb
     networks:
       - inception
 
@@ -110,6 +111,8 @@ services:
     container_name: redis
     build: ./requirements/bonus/redis
     restart: always
+    depends_on:
+      - wordpress
     networks:
       - inception
 
@@ -119,20 +122,28 @@ services:
     build: ./requirements/bonus/website
     restart: always
     depends_on:
-      wordpress:
-        condition: service_healthy
+      - wordpress
     networks:
       - inception
 
 #----------ftp----------#
-  # ftp:
-  #   container_name: ftp
-  #   build: ./requirements/bonus/ftp
-  #   ports:
-  #     - 21:21
-  #   restart: always
-  #   networks:
-  #     - inception
+  ftp:
+    container_name: ftp
+    build: ./requirements/bonus/ftp
+    ports:
+      - 21:21
+      - 40000-40010:40000-40010
+    restart: always
+    networks:
+      - inception
+    env_file:
+      - ./.env
+    secrets:
+      - ftp_pw
+    depends_on:
+      - wordpress
+    volumes:
+       - volume_wp_nginx:/var/www/html
 
 #----------portainer----------#
 

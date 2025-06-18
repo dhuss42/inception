@@ -1,14 +1,16 @@
 # File to track progress for inception project and to list the next to dos
 
 ## To dos
+	[] change domain name
 	[] virtual machine on 42 machine
 	[x] change to expected file system
 	[x] credentials, API keys and passwords musst be stored locally and ignored by git
 	[x] wordpress download, config and installtion should check wether it has been installed already
 	[x] second user for admin (no admin in name or credentials)
-	[] read up on wait with mariadb
+	[x] read up on wait with mariadb
 	[x] check ports in docker-compose
 	[] update documentation
+	[] handle exit codes adminer, portainer (2), website, ftp
 	[] clean up at end
 		[] Debugging messages
 		[] echo secrets in scripts
@@ -18,7 +20,7 @@
 	- Find defintitions for the identified unknown concepts in bonus part
 		[x] adminer
 		[x] redis chache
-		[] FTP server
+		[x] FTP server
 		[x] service of choice -> Portainer
 		[x] static website
 
@@ -181,3 +183,11 @@
 		-> fixed for nginx (didn't use exec nginx) 
 			-> sigterm goes to the script not nginx directly when starting nginx without exec (because it is a child process)
 		-> changed mariadb setup to init mariadbd + shutdown and start mariadbd
+
+## ======Day 15======
+	-> set up ftp
+		-> added nginx_wordpress volume
+		-> added env and pw with secrets
+		-> tested with filezilla
+		-> handled permission issues so that ftp_user can upload and download files in volume
+		-> new files still need permission rights so that nginx can open say an html site
