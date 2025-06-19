@@ -390,3 +390,69 @@ https://docs.docker.com/build/building/best-practices/
 
 		rm -rf /var/lib/apt/lists/*
 			deletes cache from APT install
+
+
+
+### Virtual Machine installation
+	1. download debian linux from debian.org
+	2. start up virtual box
+		-> tools -> new
+		-> name it
+		-> select debian and matching version
+		-> Iso image
+		-> skip unintended installation
+	3. 2gb memory // stay in the green // enable core
+		-> give at least 32gb for decent installation
+		-> no pre-allocation
+	4. settings -> advanced
+		-> drag and drop feature
+		-> sharing clipboards
+	5. start
+
+install Debian
+	6. graphical install
+	7. hostname
+	8. domainname
+	9. password for root
+	10. user_nmae + password
+	11. partition disks -> use entire disk -> all files in one partition
+	12 write changes to disk -> yes
+	13. select country -> closest image for debian -> continue without proxy
+	13 -> survey -> no
+	14 -> select a desktop environment (GNOME) -> standard system utilities
+	15 -> install bootloader
+
+	inside Debian
+	ctrl F for fullscreen
+
+	credentials
+		-> on test vm
+		-> root: david
+		-> dhuss: 42
+
+
+Transfer files between host and VM
+	- ssh on vm
+		sudo apt update
+		sudo apt install openssh-server
+		sudo systemctl enable ssh
+		sudo systemctl start ssh
+		sudo systemctl status ssh
+
+	- enable bridge networking
+		- vm -> settings -> network
+			-> adapter 1 -> Bridge Adapter -> en0: Wi-Fi
+		- ssh username@ip
+		- scp -r /path/to/inception username@ip:/home/username
+			-> secure copy 
+
+install docker on vm
+		https://docs.docker.com/engine/install/debian/
+
+Run Docker on vm
+	- apt update
+	- apt install make
+
+change domain to dhuss.42.fr
+	- etc/hosts
+		-> change to dhuss.42.fr

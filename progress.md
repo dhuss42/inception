@@ -191,3 +191,14 @@
 		-> tested with filezilla
 		-> handled permission issues so that ftp_user can upload and download files in volume
 		-> new files still need permission rights so that nginx can open say an html site
+
+## ======Day 16======
+	-> gather resources on installing debian on a vm
+		installtion video
+			https://www.youtube.com/watch?v=GkIb-l1K2FQ
+		image
+			https://www.debian.org/
+		install docker on vm
+			https://docs.docker.com/engine/install/debian/
+		modify etc/hosts
+			-> dhuss.42.fr
