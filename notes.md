@@ -442,17 +442,29 @@ Transfer files between host and VM
 	- enable bridge networking
 		- vm -> settings -> network
 			-> adapter 1 -> Bridge Adapter -> en0: Wi-Fi
-		- ssh username@ip
-		- scp -r /path/to/inception username@ip:/home/username
+		- ssh username@<ip>
+		- ip --brief address
+		- scp -r /path/to/inception username@<ip>:/home/username
 			-> secure copy 
 
 install docker on vm
 		https://docs.docker.com/engine/install/debian/
 
-Run Docker on vm
+Run Container on vm
 	- apt update
 	- apt install make
 
 change domain to dhuss.42.fr
 	- etc/hosts
 		-> change to dhuss.42.fr
+		-> change dhuss.42.fr to 127.0.0.1
+
+install usermod and add dhuss to sudo
+	sudo apt update
+	sudo apt install passwd
+	sudo usermod -aG sudo dhuss
+
+start docker
+	sudo systemctl start docker
+		-> start docker on vm
+	sudo systemctl status docker

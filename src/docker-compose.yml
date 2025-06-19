@@ -68,7 +68,7 @@ services:
       - wp_admin_pw
       - db_pw
     healthcheck:
-      test: ["CMD-SHELL", "wp core is-installed --path=/var/www/html/localhost/public_html --allow-root"]
+      test: ["CMD-SHELL", "wp core is-installed --path=/var/www/html/dhuss.42.fr/public_html --allow-root"]
       start_period: 10s
       interval: 2s
       timeout: 5s

@@ -196,9 +196,11 @@
 	-> gather resources on installing debian on a vm
 		installtion video
 			https://www.youtube.com/watch?v=GkIb-l1K2FQ
-		image
+		debian image
 			https://www.debian.org/
-		install docker on vm
+	-> install docker on vm
 			https://docs.docker.com/engine/install/debian/
-		modify etc/hosts
-			-> dhuss.42.fr
+	-> modify etc/hosts in vm
+			dhuss.42.fr
+	-> changed DOMAIN_NAME in containers
+			dhuss.42.fr

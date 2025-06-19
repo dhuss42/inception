@@ -9,4 +9,4 @@ ST	= State
 L	= City
 O	= ExampleOrg
 OU	= Dev
-CN	= localhost
+CN	= dhuss.42.fr
