@@ -1,8 +1,20 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Dockerfile                                         :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: dhuss <dhuss@student.42.fr>                +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/06/20 11:49:09 by dhuss             #+#    #+#              #
+#    Updated: 2025/06/20 15:04:44 by dhuss            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 FROM debian:bookworm
 
 # usr/local/bin
 # -> best practice for user-installed software
-# -> is included in PATH 
+# -> is included in PATH
 
 
 # tar extracts file from an archive
@@ -22,9 +34,11 @@ RUN apt-get update && apt-get upgrade -y && \
 	mkdir -p /usr/local/bin && \
 	tar -xzf portainer.tar.gz -C /usr/local/bin --strip-components=1 && \
 	chmod +x /usr/local/bin/portainer && \
-    rm portainer.tar.gz
+	rm portainer.tar.gz \
+	&& apt-get clean && \
+	rm -rf /var/lib/apt/lists/*
 
-# runs portainer, 
+# runs portainer,
 # --data /data tells portrainer where to store its persistent data (mounted in compose)
 # last to strings are password configuration
 CMD ["portainer", "--data", "/data", "--admin-password-file", "/run/secrets/portainer_admin_pw"]

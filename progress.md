@@ -1,20 +1,23 @@
 # File to track progress for inception project and to list the next to dos
 
 ## To dos
-	[] change domain name
-	[] virtual machine on 42 machine
+	[x] add 42 header to files
+	[x] change domain name
+	[x] virtual machine on 42 machine
 	[x] change to expected file system
 	[x] credentials, API keys and passwords musst be stored locally and ignored by git
 	[x] wordpress download, config and installtion should check wether it has been installed already
 	[x] second user for admin (no admin in name or credentials)
 	[x] read up on wait with mariadb
 	[x] check ports in docker-compose
+	[x] change secrets permissions
+	[x] check Makefile and remove unnecessary things
 	[] update documentation
-	[] handle exit codes adminer, portainer (2), website, ftp
-	[] clean up at end
-		[] Debugging messages
-		[] echo secrets in scripts
-		[] set -x
+	[x] add img to static website
+	[x] clean up at end
+		[x] Debugging messages
+		[x] echo secrets in scripts
+		[x] set -x
 
 #----bonus----#
 	- Find defintitions for the identified unknown concepts in bonus part
@@ -180,7 +183,7 @@
 ## ======Day 14======
 	-> set up portainer
 	-> Problem: when running make stop portainer exits with 2 and nginx, mariadb, website and adminer with 127
-		-> fixed for nginx (didn't use exec nginx) 
+		-> fixed for nginx (didn't use exec nginx)
 			-> sigterm goes to the script not nginx directly when starting nginx without exec (because it is a child process)
 		-> changed mariadb setup to init mariadbd + shutdown and start mariadbd
 
@@ -204,3 +207,11 @@
 			dhuss.42.fr
 	-> changed DOMAIN_NAME in containers
 			dhuss.42.fr
+
+## ======Day 17======
+	-> did everyhting I did at home on day 16 at school
+	-> added 42 header to files
+	-> clean up files
+	-> tweak ftp script
+		-> cleared conflicting ownerships of var/www/html
+		-> created symbolic link so that files can be uploaded and download from /var/www/html and chroot stays non writable

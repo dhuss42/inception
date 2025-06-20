@@ -1,34 +1,26 @@
 #!/bin/bash
 
-set -x
-#-------------------------------------------------------#
-# nginx stores its PID in this directory by default		#
-# -> if it doesn't exist nginx can crash				#
-#-------------------------------------------------------#
-#mkdir -p /run/nginx
-
-#mkdir -p /etc/nginx/ssl/
-
-#-----------------------------------------------------#
-# generate self-signed certificate & key
-# openssl
-#	- tool for creating and managing OpenSSL certificates
-# req
-#	- subcommand for public key infrastructure stndard
-# -x509
-#	- want to make a self-signed certificate instead of gernating a certificate sining reuest
-# -nodes
-# -days 365
-#	- certificate valid for 365 days
-# -newkey rsa:2048
-#	- generate a new certificate and key at the same time
-#	- make an RSA key that is 2048 bits long
-# -keyout
-#	- tells openssl where to place the generated key file
-# -out
-#	tells openssl where to place the certificate
-# -config openssl.cnf
-#	- tells openssl to use the given config file instead of prompting interactively
+#-----------------------------------------------------------------------------------------------#
+# generate self-signed certificate & key														#
+# openssl																						#
+#	- tool for creating and managing OpenSSL certificates										#
+# req																							#
+#	- subcommand for public key infrastructure stndard											#
+# -x509																							#
+#	- want to make a self-signed certificate instead of gernating a certificate sining reuest	#
+# -nodes																						#
+# -days 365																						#
+#	- certificate valid for 365 days															#
+# -newkey rsa:2048																				#
+#	- generate a new certificate and key at the same time										#
+#	- make an RSA key that is 2048 bits long													#
+# -keyout																						#
+#	- tells openssl where to place the generated key file										#
+# -out																							#
+#	tells openssl where to place the certificate												#
+# -config openssl.cnf																			#
+#	- tells openssl to use the given config file instead of prompting interactively				#
+#-----------------------------------------------------------------------------------------------#
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/selfsigned.key -out /etc/nginx/ssl/selfsigned.crt -config /etc/nginx/ssl/openssl.cnf
 
 #-------------------------------------------------------#

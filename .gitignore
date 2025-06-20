@@ -1,3 +1,5 @@
+# passwords
 /secrets
 
+# environment variables
 /src/.env
