@@ -1,13 +1,14 @@
 ## Contents
 
-## Short Description of Project and Task
+## Contents
 
-- Web Host Docker Stack run inside a virtual machine  
-- Docker images have to be built using docker-compose.yml  
-- containers musst be built from penultimate stable version of Alpine or Debian  
-	- debian:bookworm  
-- Write own Dockerfiles  
+1. [Project Overview](#1-Project-overview)
+2. []()
+3. []()
 
+## 1. Project overview
+
+Inception is a system administration project aimed at building a containerized web hosting environment using Docker and Docker Compose. The goal is to set up and configure multiple services—such as NGINX with SSL, WordPress with php-fpm, and MariaDB—each running in isolated containers. Within the bonus part multiple services, each run inside their own container, are added. These include Redis, FTP, Adminer, a static website and a service of our choice, for which I chose portainer.
 
 ## Mandatory Part
 - nginx
