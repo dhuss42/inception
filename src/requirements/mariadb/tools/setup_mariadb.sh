@@ -7,7 +7,6 @@ DB_USER_PASSWORD=$(cat /run/secrets/db_pw)
 
 #------------------init mariadb------------------#
 
-# run mariadbd (server deamon) in background
 mariadbd --skip-networking &
 
 until mysqladmin ping --silent; do

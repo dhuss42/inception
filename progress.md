@@ -215,3 +215,5 @@
 	-> tweak ftp script
 		-> cleared conflicting ownerships of var/www/html
 		-> created symbolic link so that files can be uploaded and download from /var/www/html and chroot stays non writable
+	-> documentation clean up
+	-> added img to static website
