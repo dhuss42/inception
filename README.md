@@ -23,80 +23,34 @@ Both Docker and Virtual Machines (VMs) are virtualization tools, but they differ
 | Portability | OS mus be compatiable with the host's kernel | Can run any OS on any kernel |
 
 ### Docker
-
 Docker is a platform that allows you to build, run, and manage containers. Containers package up an application with everything it needs to run—code, libraries, dependencies, etc.—into a single unit that can run consistently across environments.
 
 ### Docker Compose
-
 Docker Compose is a tool for defining and managing multi-container Docker applications using a YAML file (docker-compose.yml). Instead of running each container manually with complex docker run commands, you can describe the entire stack—services, networks, volumes, environment variables, and dependencies—in a single file. Then, you use docker-compose up to build and start all the containers.
 
 ### Docker Networks
-
 When you define services in the same docker-compose.yml and network, they can communicate using just container names. You don’t need to expose ports between services.
 
-- nginx
-	- TSLv1.2/v1.3
-- wordpress
-	- php-fpm  
-	- wordpress musst be installed and configured  
-	- volume that contains WordPress files (also mounted to nginx container)  
-- mariadb
-	- database Management System
-		-> software that controls the database  
-	- Database  
-		-> collection of related files  
-	- volume that contains WordPress database  
-- docker-network  
-	-   
+### NGINX
+NGINX, a high-performance web server and reverse proxy. It acts as the sole entry point into the system, handling all incoming HTTPS traffic. As required by the project, it must support only TLSv1.2 or TLSv1.3, ensuring encrypted and secure communication between the client and the server. NGINX does not process PHP code itself; instead, it forwards requests to the WordPress container using FastCGI. To serve static WordPress files, it shares a volume with the WordPress container.
+
+### WordPress
+WordPress is an open-source content management system (CMS) that allows users to create, manage, and publish websites or blogs through a user-friendly interface, primarily using PHP and a MySQL-compatible database. The WordPress container runs with php-fpm (FastCGI Process Manager), which handles the execution of PHP code. WordPress is installed and fully configured through the use of a script.
+
+### MariaDB
+The backend of the system is powered by MariaDB, a robust Database Management System (DBMS). It stores and manages all WordPress data, including users, posts, settings, and metadata. The MariaDB container also uses a persistent volume to ensure that the database content is not lost when containers are restarted or rebuilt. It communicates with the WordPress container over a custom Docker network
 
 ## 3. Bonus
-Each additional service runs inside its own container 
-- ftp  
-	- pointing to the volume of the WordPress website  
-- adminer
-- redis-cache for wordpress
-			- redis cache for Wordpress  
-			- A cache is a hardware or software component that stores data so that future requests for that data can be served   faster; the data stored in a cache might be the result of an earlier computation or a copy of data stored elsewhere
-			- a non-sql database  
-			- stores data in key=value pairs  
-			- works in ram -> that's why used for caching  
-			- built on top of a tradtional database and redis sits infront of it  
-			- a redis database for caching  
-				- between webserver and databases  
-				- if request is in cache it can be accessed from there directly saving response time  
-				- if its not in cache it goes to database and is then stored in cache  
-			- downside is cache staleness, meaning it does not represent the up-to-date data  
-				- TTL (time to live) can be set for data  
+In the bonus part of the project, additional services are introduced, each running in its own dedicated container.
 
-- static website  
-	- used html and css for the website  
-- portainer (service of choice)  
+An FTP server is set up to point directly to the WordPress website volume, allowing easy file transfers and management of website content.
 
-## Eval Sheet questions
-- How does Docker work?  
+Adminer is included as a lightweight database management tool, providing a simple web interface to manage the MariaDB database without needing complex setups.
 
-- How does Docker-compose work?  
+A Redis cache is implemented to improve WordPress performance. Redis is a fast, in-memory, key-value store that acts as a caching layer between the webserver and the database. By storing frequently accessed data in RAM, Redis significantly reduces response times by serving cached data quickly instead of querying the database every time. However, caching can introduce stale data, so a time-to-live (TTL) is set to ensure the cache stays reasonably fresh.
 
-- Difference between using a Docker image used with docker-compose and without  
+Additionally, a simple static website is created using HTML and CSS, serving as a basic showcase or informational page separate from the WordPress application.
 
-- The benefit of Docker compared to VMs  
-	Docker and Virtual Machine  
-		- both virtualisation tools  
-		- Docker  
-			- virtualises the applciations layer  
-			- uses kernel of the host  
-		- vm  
-			- has own kernel level  
-	-> Docker image is much smaller than vm  
-	-> Docker container start and run much faster  
-	-> VM can be run with any OS on any OS Kernel  
-		-> Docker cannot because the OS might not be compatible with Machine's Kernel (linux Docker and Windows Kernel)  
+Finally, Portainer, a service chosen to facilitate container management, is included. Portainer offers an easy-to-use graphical interface to monitor and control Docker containers, networks, and volumes, helping streamline the administration of the entire Docker-based stack.
 
-- The pertinence of the directory structure required for the subject  
-
-- simple explanation of docker-network  
-	-> Docker creates it's an isolated network in which the containers are running in  
-	-> when two containers are created in the same network the can communciate with just their name (no ports needed)  
-
-- explain how to log into the SQL Database as root but with no password  
 
