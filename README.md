@@ -1,16 +1,16 @@
-## Contents
+# Inception
 
 ## Contents
 
 1. [Project Overview](#1-Project-overview)
-2. []()
-3. []()
+2. [Mandatory Part](#2.-Mandatory-part)
+3. [Bonus](#3.-Bonus)
 
 ## 1. Project overview
 
 Inception is a system administration project aimed at building a containerized web hosting environment using Docker and Docker Compose. The goal is to set up and configure multiple services—such as NGINX with SSL, WordPress with php-fpm, and MariaDB—each running in isolated containers. Within the bonus part multiple services, each run inside their own container, are added. These include Redis, FTP, Adminer, a static website and a service of our choice, for which I chose portainer.
 
-## Mandatory Part
+## 2. Mandatory part
 - nginx
 	- TSLv1.2/v1.3
 - wordpress
@@ -26,7 +26,7 @@ Inception is a system administration project aimed at building a containerized w
 - docker-network  
 	-   
 
-## Bonus
+## 3. Bonus
 Each additional service runs inside its own container 
 - ftp  
 	- pointing to the volume of the WordPress website  
