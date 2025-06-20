@@ -2,33 +2,33 @@
 
 ## Short Description of Project and Task
 
-- Web Host Docker Stack run inside a virtual machine
-- Docker images have to be built using docker-compose.yml
-- containers musst be built from penultimate stable version of Alpine or Debian
-	- debian:bookworm
-- Write own Dockerfiles
+- Web Host Docker Stack run inside a virtual machine  
+- Docker images have to be built using docker-compose.yml  
+- containers musst be built from penultimate stable version of Alpine or Debian  
+	- debian:bookworm  
+- Write own Dockerfiles  
 
 
 ## Mandatory Part
 - nginx
 	- TSLv1.2/v1.3
 - wordpress
-	- php-fpm
-	- wordpress musst be installed and configured
-	- volume that contains WordPress files (also mounted to nginx container)
+	- php-fpm  
+	- wordpress musst be installed and configured  
+	- volume that contains WordPress files (also mounted to nginx container)  
 - mariadb
 	- database Management System
-		-> software that controls the database
-	- Database
-		-> collection of related files
-	- volume that contains WordPress database
-- docker-network
-	- 
+		-> software that controls the database  
+	- Database  
+		-> collection of related files  
+	- volume that contains WordPress database  
+- docker-network  
+	-   
 
 ## Bonus
-Each additional service runs inside its own container
-- ftp
-	- pointing to the volume of the WordPress website
+Each additional service runs inside its own container 
+- ftp  
+	- pointing to the volume of the WordPress website  
 - adminer
 - redis-cache for wordpress
 			- redis cache for Wordpress
