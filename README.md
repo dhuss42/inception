@@ -11,6 +11,31 @@
 Inception is a system administration project aimed at building a containerized web hosting environment using Docker and Docker Compose. The goal is to set up and configure multiple services—such as NGINX with SSL, WordPress with php-fpm, and MariaDB—each running in isolated containers. Within the bonus part multiple services, each run inside their own container, are added. These include Redis, FTP, Adminer, a static website and a service of our choice, for which I chose portainer.
 
 ## 2. Mandatory part
+
+### Container vs Virtual Machine
+
+Both Docker and Virtual Machines (VMs) are virtualization tools, but they differ in how they virtualize
+
+| Feature | Docker | VirtualMachine |
+|----------|----------|----------|
+| Layer | Virtualizes the application layer | Virtualises the entire OS |
+| Kernel | Shares the host's kernel | Has its own kernel |
+| Size | Leightweight | Heavy (full OS) |
+| Startup Speed | starts in seconds | starts in minutes |
+| Portability | OS mus be compatiable with the host's kernel | Can run any OS on any kernel |
+
+### Docker
+
+Docker is a platform that allows you to build, run, and manage containers. Containers package up an application with everything it needs to run—code, libraries, dependencies, etc.—into a single unit that can run consistently across environments.
+
+### Docker Compose
+
+Docker Compose is a tool for defining and managing multi-container Docker applications using a YAML file (docker-compose.yml). Instead of running each container manually with complex docker run commands, you can describe the entire stack—services, networks, volumes, environment variables, and dependencies—in a single file. Then, you use docker-compose up to build and start all the containers.
+
+### Docker Networks
+
+When you define services in the same docker-compose.yml and network, they can communicate using just container names. You don’t need to expose ports between services.
+
 - nginx
 	- TSLv1.2/v1.3
 - wordpress
