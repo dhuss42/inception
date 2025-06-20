@@ -18,7 +18,7 @@
 		[x] Debugging messages
 		[x] echo secrets in scripts
 		[x] set -x
-	[] write README
+	[x] write README
 
 #----bonus----#
 	- Find defintitions for the identified unknown concepts in bonus part
