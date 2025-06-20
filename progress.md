@@ -12,12 +12,13 @@
 	[x] check ports in docker-compose
 	[x] change secrets permissions
 	[x] check Makefile and remove unnecessary things
-	[] update documentation
+	[x] update documentation
 	[x] add img to static website
 	[x] clean up at end
 		[x] Debugging messages
 		[x] echo secrets in scripts
 		[x] set -x
+	[] write README
 
 #----bonus----#
 	- Find defintitions for the identified unknown concepts in bonus part
@@ -26,7 +27,6 @@
 		[x] FTP server
 		[x] service of choice -> Portainer
 		[x] static website
-
 
 ## ======Day 1======
 	-> went through subject and identified unknown concepts (see notes)
@@ -215,5 +215,9 @@
 	-> tweak ftp script
 		-> cleared conflicting ownerships of var/www/html
 		-> created symbolic link so that files can be uploaded and download from /var/www/html and chroot stays non writable
+	-> alctually fixed the bullshit I tried earlier in the day regarding ftp
+		-> ftp_user belongs to www-data group
+		-> now has permissions to write files
+		-> made ftp_container wait on wordpress healthcheck 
 	-> documentation clean up
 	-> added img to static website

@@ -4,38 +4,27 @@
 
 FTP_USER_PASSWORD=$(cat /run/secrets/ftp_pw)
 
-# vsftpd needs the directory to start
+#------------------vsftpd runtime directory------------------#
 mkdir -p /var/run/vsftpd/empty
 chmod 755 /var/run/vsftpd/empty
 
-# create secure chroot dir
-mkdir -p /home/${FTP_USER}/ftp
-chown root:root /home/${FTP_USER}/ftp
-chmod 755 /home/${FTP_USER}/ftp
-
+#------------------create FTP_USER------------------#
 
 # create user and set password
-useradd -d /home/${FTP_USER}/ftp -m ${FTP_USER}
+useradd -d /var/www/html -m ${FTP_USER}
 echo "${FTP_USER}:${FTP_USER_PASSWORD}" | chpasswd
 
-#create symbolic link between directories
-ln -s /var/www/html /home/${FTP_USER}/ftp/webroot
-
-#create ftp dirs
-mkdir -p /var/www/html
-chmod 775 /var/www/html
-
+#------------------permissions------------------#
 echo "${FTP_USER}" | tee -a /etc/vsftpd.userlist
 
-#------------------handle user permissions------------------#
-
-# add ftp_user to www-data group so they share permissions
-# give group read write and execute permissions and ownership
-# makes it possible to download and upload files
+# FTP_USER can write to the wordpress volume
 usermod -aG www-data ${FTP_USER}
-chmod -R g+rwX /var/www/html/
-chgrp -R www-data /var/www/html/
-chmod 2775 /var/www/html/
+chmod -R 2775 /var/www/html/
+chown -R www-data /var/www/html
+cmod g+s /var/www/html
+
+#------------------permissions------------------#
+echo "FTP test file" > /var/www/html/ftp_test.txt
 
 #------------------execute vsftpd------------------#
 

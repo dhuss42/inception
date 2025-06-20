@@ -141,7 +141,8 @@ services:
     secrets:
       - ftp_pw
     depends_on:
-      - wordpress
+      wordpress:
+        condition: service_healthy
     volumes:
        - volume_wp_nginx:/var/www/html
 
