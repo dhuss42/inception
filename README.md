@@ -4,9 +4,9 @@ Inception is a system administration project aimed at building a containerized w
 
 ## Contents
 
-1. [Project Overview](#-Inception)
-2. [Mandatory Part](##-Mandatory-part)
-3. [Bonus](##-Bonus)
+1. [Project Overview](#inception)
+2. [Mandatory Part](#mandatory-part)
+3. [Bonus](#bonus)
 
 ## Mandatory part
 
