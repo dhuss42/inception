@@ -9,10 +9,25 @@ networks:
 volumes:
   volume_mariadb:
     name: mariadb
+    driver: local #use default local volume
+    driver_opts: #how thevolume is handled by local volume
+      type: none 
+      device: "/home/dhuss/data/mariadb" # path on host to be mounted
+      o: bind # mount the exact path into the container
   volume_wp_nginx:
     name: wp_nginx
+    driver: local
+    driver_opts:
+      type: none
+      device: "/home/dhuss/data/wp_nginx"
+      o: bind
   volume_portainer:
     name: portainer_data
+    driver: local
+    driver_opts:
+      type: none
+      device: "/home/dhuss/data/portainer"
+      o: bind
 
 #----------Secrets----------#
 

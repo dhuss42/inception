@@ -19,7 +19,7 @@
 		[x] echo secrets in scripts
 		[x] set -x
 	[x] write README
-	[] change volumes to be placed at /home/login/data
+	[x] change volumes to be placed at /home/login/data
 		-> look at bind mounts and driver_opts
 
 #----bonus----#
