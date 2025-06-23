@@ -10,13 +10,13 @@
 #                                                                              #
 # **************************************************************************** #
 
-COMPOSE= ./src/docker-compose.yml
-ENV_FILE= ./src/.env
+COMPOSE= ./srcs/docker-compose.yml
+ENV_FILE= ./srcs/.env
 NAME= inception
 
 up: setup
 	@echo "$(MAGENTA)============Building images... Creating and starting containers... for $(NAME)============$(RESET)"
-	@docker compose -p $(NAME) -f $(COMPOSE) --env-file $(ENV_FILE) up --build
+	@docker compose -p $(NAME) -f $(COMPOSE) --env-file $(ENV_FILE) up -d --build
 
 down:
 	@echo "$(MAGENTA)============Stopping containers... removing containers and networks... for $(NAME)============$(RESET)"

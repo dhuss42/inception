@@ -2,7 +2,7 @@
 /secrets
 
 # environment variables
-/src/.env
+/srcs/.env
 
 #progress and notes
 /notes_progress
