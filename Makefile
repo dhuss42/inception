@@ -16,7 +16,7 @@ NAME= inception
 
 up: setup
 	@echo "$(MAGENTA)============Building images... Creating and starting containers... for $(NAME)============$(RESET)"
-	@docker compose -p $(NAME) -f $(COMPOSE) --env-file $(ENV_FILE) up -d --build
+	@docker compose -p $(NAME) -f $(COMPOSE) --env-file $(ENV_FILE) up --build
 
 down:
 	@echo "$(MAGENTA)============Stopping containers... removing containers and networks... for $(NAME)============$(RESET)"
@@ -51,6 +51,9 @@ clean: stop
 	@docker image prune -a
 	@echo "$(YELLOW)Removing networks...$(RESET)"
 	@docker network prune
+	@sudo rm -rf /home/dhuss/data/mariadb
+	@sudo rm -rf /home/dhuss/data/wp_nginx
+	@sudo rm -rf /home/dhuss/data/portainer
 
 fclean: stop clean
 	@echo "$(YELLOW)Removing unused data across the Docker system$(RESET)"
@@ -82,12 +85,30 @@ re: fclean up
 
 setup:
 	@echo "$(CYAN)Creating bind mount directories...$(RESET)"
-	@mkdir -p /home/dhuss/data/mariadb
-	@mkdir -p /home/dhuss/data/wp_nginx
-	@mkdir -p /home/dhuss/data/portainer
-	@sudo chown -R 999:999 /home/dhuss/data/mariadb
-	@sudo chown -R 33:33 /home/dhuss/data/wp_nginx
-	@sudo chown -R 1000:1000 /home/dhuss/data/portainer
+
+	@if [ ! -d /home/dhuss/data/mariadb ]; then \
+		echo "$(YELLOW)Creating /home/dhuss/data/mariadb$(RESET)"; \
+		mkdir -p /home/dhuss/data/mariadb; \
+		sudo chown -R 999:999 /home/dhuss/data/mariadb; \
+	else \
+		echo "$(GREEN)/home/dhuss/data/mariadb already exists$(RESET)"; \
+	fi
+
+	@if [ ! -d /home/dhuss/data/wp_nginx ]; then \
+		echo "$(YELLOW)Creating /home/dhuss/data/wp_nginx$(RESET)"; \
+		mkdir -p /home/dhuss/data/wp_nginx; \
+		sudo chown -R 33:33 /home/dhuss/data/wp_nginx; \
+	else \
+		echo "$(GREEN)/home/dhuss/data/wp_nginx already exists$(RESET)"; \
+	fi
+
+	@if [ ! -d /home/dhuss/data/portainer ]; then \
+		echo "$(YELLOW)Creating /home/dhuss/data/portainer$(RESET)"; \
+		mkdir -p /home/dhuss/data/portainer; \
+		sudo chown -R 1000:1000 /home/dhuss/data/portainer; \
+	else \
+		echo "$(GREEN)/home/dhuss/data/portainer already exists$(RESET)"; \
+	fi
 
 .PHONY: up down start stop status clean fclean re setup
 

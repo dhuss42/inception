@@ -15,7 +15,7 @@ done
 
 # -u root: run mysql as user root
 # -e : execute the cmd inside quotes
-mysql -u root -e "SET PASSWORD FOR 'root'@'${DOMAIN_NAME}' = PASSWORD('${DB_ROOT_PASSWORD}');"
+mysql -u root -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${DB_ROOT_PASSWORD}');"
 
 # execute command as root using heredoc
 mysql -u root -p"${DB_ROOT_PASSWORD}" <<EOF
