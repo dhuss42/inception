@@ -220,6 +220,14 @@
 	-> alctually fixed the bullshit I tried earlier in the day regarding ftp
 		-> ftp_user belongs to www-data group
 		-> now has permissions to write files
-		-> made ftp_container wait on wordpress healthcheck 
+		-> made ftp_container wait on wordpress healthcheck
 	-> documentation clean up
 	-> added img to static website
+
+## ======Day 18======
+	-> handled bind mounts inside vm
+	-> wrote a README
+
+## ======Day 19======
+	-> fixed bind mounts in vm: error from not creating volumes locally on wm
+	-> set up ssh for intra
