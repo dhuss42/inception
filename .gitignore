@@ -3,3 +3,6 @@
 
 # environment variables
 /src/.env
+
+#progress and notes
+/notes_progress
