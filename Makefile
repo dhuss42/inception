@@ -6,7 +6,7 @@
 #    By: dhuss <dhuss@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/20 11:51:47 by dhuss             #+#    #+#              #
-#    Updated: 2025/06/20 15:49:32 by dhuss            ###   ########.fr        #
+#    Updated: 2025/06/23 16:33:52 by dhuss            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ COMPOSE= ./src/docker-compose.yml
 ENV_FILE= ./src/.env
 NAME= inception
 
-up:
+up: setup
 	@echo "$(MAGENTA)============Building images... Creating and starting containers... for $(NAME)============$(RESET)"
 	@docker compose -p $(NAME) -f $(COMPOSE) --env-file $(ENV_FILE) up -d --build
 
@@ -44,7 +44,7 @@ status:
 	@echo "\n$(BLUE)============disk usage============$(RESET)\n"
 	@docker system df
 
-clean:
+clean: stop
 	@echo "$(YELLOW)Removing containers that are not running...$(RESET)"
 	@docker container prune
 	@echo "$(YELLOW)Removing images that are not running...$(RESET)"
@@ -73,10 +73,23 @@ fclean: stop clean
 	else \
 		echo "$(YELLOW)No portainer volume to remove$(RESET)"; \
 	fi
+	@echo "$(YELLOW)Removing host bind-mount directories with sudo...$(RESET)"
+	@sudo rm -rf /home/dhuss/data/mariadb
+	@sudo rm -rf /home/dhuss/data/wp_nginx
+	@sudo rm -rf /home/dhuss/data/portainer
 
 re: fclean up
 
-.PPONY: up down start stop status clean fclean re
+setup:
+	@echo "$(CYAN)Creating bind mount directories...$(RESET)"
+	@mkdir -p /home/dhuss/data/mariadb
+	@mkdir -p /home/dhuss/data/wp_nginx
+	@mkdir -p /home/dhuss/data/portainer
+	@sudo chown -R 999:999 /home/dhuss/data/mariadb
+	@sudo chown -R 33:33 /home/dhuss/data/wp_nginx
+	@sudo chown -R 1000:1000 /home/dhuss/data/portainer
+
+.PHONY: up down start stop status clean fclean re setup
 
 #----------Colours----------#
 RED=\033[0;31m
